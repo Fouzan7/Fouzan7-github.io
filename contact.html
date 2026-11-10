@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Mohammed Fouzan</title>
+  <meta name="description" content="Get in touch with Mohammed Fouzan via email, phone, GitHub, LinkedIn, or the interactive contact form." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <nav class="navbar" aria-label="Main Navigation">
+      <a href="index.html" class="nav-logo"><span class="logo-mark">MF</span><span>Fouzan</span><span class="logo-tag">CSE</span></a>
+      <div class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">Bio-Data</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="contact.html" class="btn-hire active">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-wrapper">
+
+    <section class="page-banner">
+      <div class="banner-tag">Direct Channel</div>
+      <h1>Contact Me</h1>
+      <p>Open for engineering collaborations, internships, and technical discussions</p>
+      <div class="breadcrumb">
+        <a href="index.html">Home</a><span>/</span><strong>Contact</strong>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="contact-layout">
+
+        <aside class="contact-info fade-up">
+          <h2 class="contact-info-title">Let's Connect</h2>
+          <p>
+            Have an embedded project, robotics build, or software opportunity in mind? Reach out directly via email, phone, or the message form.
+          </p>
+
+          <div class="cinfo-items">
+            <div class="cinfo-row">
+              <div class="cinfo-icon"><i class="fas fa-envelope"></i></div>
+              <div style="flex:1;">
+                <div class="cinfo-label">Email</div>
+                <div class="cinfo-val"><a href="mailto:mthouban@gmail.com">mthouban@gmail.com</a></div>
+              </div>
+              <button type="button" class="soc-btn copy-btn" data-copy="mthouban@gmail.com" style="cursor:pointer;">
+                <i class="fas fa-copy"></i> Copy
+              </button>
+            </div>
+
+            <div class="cinfo-row">
+              <div class="cinfo-icon"><i class="fas fa-phone"></i></div>
+              <div style="flex:1;">
+                <div class="cinfo-label">Phone</div>
+                <div class="cinfo-val"><a href="tel:+918147479855">+91 8147479855</a></div>
+              </div>
+              <button type="button" class="soc-btn copy-btn" data-copy="+91 8147479855" style="cursor:pointer;">
+                <i class="fas fa-copy"></i> Copy
+              </button>
+            </div>
+
+            <div class="cinfo-row">
+              <div class="cinfo-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>
+                <div class="cinfo-label">Home Town</div>
+                <div class="cinfo-val">Bhatkal, Karnataka, India</div>
+              </div>
+            </div>
+
+            <div class="cinfo-row">
+              <div class="cinfo-icon"><i class="fas fa-university"></i></div>
+              <div>
+                <div class="cinfo-label">Institution</div>
+                <div class="cinfo-val">P.A. College of Engineering, Mangaluru</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="csoc-row">
+            <a href="https://github.com/Fouzan7" target="_blank" rel="noopener noreferrer" class="soc-btn">
+              <i class="fab fa-github"></i> GitHub / Fouzan7
+            </a>
+            <a href="https://www.linkedin.com/in/mohammed-fouzan-4341b1441" target="_blank" rel="noopener noreferrer" class="soc-btn">
+              <i class="fab fa-linkedin-in"></i> LinkedIn Profile
+            </a>
+          </div>
+        </aside>
+
+        <div class="glow-card no-tilt contact-form-card fade-up">
+          <h3><i class="fas fa-terminal" style="color:var(--accent-hi);margin-right:8px;"></i> Send a Message</h3>
+          <form id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="e.g. Alex Carter" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="e.g. alex@domain.com" required />
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="e.g. Robotics Project Collaboration" required />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Write your message..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+            <div class="form-error" id="form-error"></div>
+            <div class="form-success" id="form-success">
+              <i class="fas fa-check-circle"></i> Message validated and received! I will respond via email shortly.
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-logo">Mohammed <span>Fouzan</span></div>
+    <p class="footer-tag">B.E. Computer Science &amp; Engineering // Robotics &amp; Embedded Systems</p>
+    <nav class="footer-nav" aria-label="Footer Navigation">
+      <a href="index.html">Home</a><a href="about.html">Bio-Data</a><a href="skills.html">Skills</a>
+      <a href="projects.html">Projects</a><a href="education.html">Education</a><a href="resume.html">Resume</a><a href="contact.html">Contact</a>
+    </nav>
+    <p class="footer-copy">&copy; 2026 <span>Mohammed Fouzan</span> &middot; HTML5, CSS3, JavaScript &amp; jQuery</p>
+  </footer>
+
+  <button class="scroll-top" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+  <script src="js/script.js"></script>
+</body>
+</html>

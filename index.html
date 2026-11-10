@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohammed Fouzan — CSE &amp; Embedded Systems Engineer</title>
+  <meta name="description" content="Portfolio, Resume &amp; Bio-Data of Mohammed Fouzan — Computer Science &amp; Engineering student specialising in Robotics &amp; Embedded Systems at P.A. College of Engineering." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <nav class="navbar" aria-label="Main Navigation">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-mark">MF</span>
+        <span>Fouzan</span>
+        <span class="logo-tag">CSE</span>
+      </a>
+      <div class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">Bio-Data</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="contact.html" class="btn-hire">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-wrapper">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div class="hero-content">
+
+        <div class="hero-text">
+          <div class="status-pill">
+            <span class="status-dot"></span>
+            <span>B.E. CSE // ROBOTICS &amp; EMBEDDED SYSTEMS</span>
+          </div>
+          <h1>
+            <span class="name-line" data-scramble>Mohammed</span>
+            <span class="name-accent" data-scramble>Fouzan</span>
+          </h1>
+          <p class="hero-role">
+            &gt; <span class="typed">CSE Student @ PACE Mangaluru</span><span class="cursor-blink"></span>
+          </p>
+          <p class="hero-summary">
+            Bachelor of Engineering student at <strong>P.A. College of Engineering, Mangaluru</strong>, engineering practical systems across <strong>ESP32 embedded hardware, robotics prototyping, and modern web technology</strong>.
+          </p>
+          <div class="hero-cta">
+            <a href="projects.html" class="btn-primary" data-cursor="OPEN"><i class="fas fa-microchip"></i> Explore Builds</a>
+            <a href="resume.html" class="btn-outline" data-cursor="VIEW"><i class="fas fa-file-alt"></i> Resume</a>
+            <a href="about.html" class="btn-outline" data-cursor="DATA"><i class="fas fa-id-card"></i> Bio-Data</a>
+          </div>
+
+          <div class="hero-socials">
+            <a href="https://github.com/Fouzan7" target="_blank" rel="noopener noreferrer" class="soc-btn" data-cursor="CODE">
+              <i class="fab fa-github"></i> github.com/Fouzan7
+            </a>
+            <a href="https://www.linkedin.com/in/mohammed-fouzan-4341b1441" target="_blank" rel="noopener noreferrer" class="soc-btn" data-cursor="LINK">
+              <i class="fab fa-linkedin-in"></i> LinkedIn
+            </a>
+            <a href="mailto:mthouban@gmail.com" class="soc-btn" data-cursor="MAIL">
+              <i class="fas fa-envelope"></i> mthouban@gmail.com
+            </a>
+          </div>
+        </div>
+
+        <!-- Interactive 3D Wireframe Gyroscope & Live Module -->
+        <aside class="hero-module">
+          <div class="glow-card telemetry-card">
+            <div class="telemetry-topbar">
+              <div class="term-dots"><span></span><span></span><span></span></div>
+              <span>STUDIO // MF_01</span>
+              <span style="color:var(--accent-hi);">PORTFOLIO</span>
+            </div>
+
+            <div class="gyro-stage" data-cursor="DRAG 3D">
+              <canvas id="gyro-canvas"></canvas>
+              <div class="gyro-hud-tl">KINETIC_FORM // INTERACTIVE</div>
+              <div class="gyro-hud-br" id="gyro-angles">PITCH 0&deg; &middot; YAW 0&deg;</div>
+            </div>
+
+            <div class="mod-tabs" role="tablist">
+              <button type="button" class="mod-tab active" data-mod="metrics">METRICS</button>
+              <button type="button" class="mod-tab" data-mod="sys">SYSTEM</button>
+              <button type="button" class="mod-tab" data-mod="stack">STACK</button>
+            </div>
+
+            <div id="mod-metrics" class="mod-panel active">
+              <div class="profile-stats">
+                <div class="pstat">
+                  <div class="pstat-num hi"><span class="stat-num" data-target="8.86" data-decimals="2">8.86</span></div>
+                  <div class="pstat-label">Current CGPA</div>
+                </div>
+                <div class="pstat">
+                  <div class="pstat-num"><span class="stat-num" data-target="3" data-suffix="+">3+</span></div>
+                  <div class="pstat-label">Hardware Builds</div>
+                </div>
+                <div class="pstat">
+                  <div class="pstat-num hi"><span class="stat-num" data-target="14" data-suffix="+">14+</span></div>
+                  <div class="pstat-label">Tech &amp; Tools</div>
+                </div>
+                <div class="pstat">
+                  <div class="pstat-num">BE10X</div>
+                  <div class="pstat-label">Certification</div>
+                </div>
+              </div>
+            </div>
+
+            <div id="mod-sys" class="mod-panel">
+              <div class="profile-stats">
+                <div class="pstat">
+                  <div class="pstat-num" style="font-size:1rem;">PACE</div>
+                  <div class="pstat-label">Mangaluru (2024&ndash;Present)</div>
+                </div>
+                <div class="pstat">
+                  <div class="pstat-num hi" style="font-size:1rem;">80%</div>
+                  <div class="pstat-label">12th IIS Dammam, KSA</div>
+                </div>
+                <div class="pstat">
+                  <div class="pstat-num" style="font-size:1rem;">Bhatkal</div>
+                  <div class="pstat-label">Karnataka, India</div>
+                </div>
+                <div class="pstat">
+                  <div class="pstat-num hi" style="font-size:1rem;">Ctrl+K</div>
+                  <div class="pstat-label">Quick Command Menu</div>
+                </div>
+              </div>
+            </div>
+
+            <div id="mod-stack" class="mod-panel">
+              <div class="skill-tags">
+                <span class="stag">Python</span>
+                <span class="stag">Java</span>
+                <span class="stag">C</span>
+                <span class="stag">MySQL</span>
+                <span class="stag">HTML / CSS</span>
+                <span class="stag">ESP32</span>
+                <span class="stag">Sensors</span>
+                <span class="stag">Drone Prototyping</span>
+                <span class="stag">RC Systems</span>
+                <span class="stag">Salesforce</span>
+              </div>
+            </div>
+
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- ===== KINETIC INFINITE STACK MARQUEE ===== -->
+    <div class="marquee-bar" aria-label="Technical Stack Marquee">
+      <div class="marquee-track">
+        <span class="marquee-item"><span class="marquee-dot"></span> ESP32 MICROCONTROLLER</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> EMBEDDED SYSTEMS</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> DRONE PROTOTYPING</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> PYTHON &amp; JAVA &amp; C</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> ROBOTICS &amp; RC SYSTEMS</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> HTML5 / CSS3 / JQUERY</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> MYSQL DATABASE</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> UI/UX &amp; SALESFORCE</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="marquee-item"><span class="marquee-dot"></span> ESP32 MICROCONTROLLER</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> EMBEDDED SYSTEMS</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> DRONE PROTOTYPING</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> PYTHON &amp; JAVA &amp; C</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> ROBOTICS &amp; RC SYSTEMS</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> HTML5 / CSS3 / JQUERY</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> MYSQL DATABASE</span>
+        <span class="marquee-item"><span class="marquee-dot"></span> UI/UX &amp; SALESFORCE</span>
+      </div>
+    </div>
+
+    <!-- ===== ASYMMETRIC BENTO OVERVIEW ===== -->
+    <section class="section section-dark">
+      <div class="section-header fade-up">
+        <div class="section-eyebrow">01 // Architecture</div>
+        <h2 class="section-title" data-scramble>Engineering <span>Capabilities</span></h2>
+        <p class="section-sub">Hardware-to-software systems built through continuous learning and practical prototyping</p>
+      </div>
+
+      <div class="bento-grid">
+        <article class="glow-card skill-card bento-7 fade-up">
+          <div class="skill-icon"><i class="fas fa-microchip"></i></div>
+          <h3>Embedded Electronics &amp; IoT Prototyping</h3>
+          <p style="font-size:0.92rem;color:var(--slate);margin-bottom:18px;">Building microcontroller-driven prototypes using ESP32 and physical sensors — turning everyday usability problems like medication adherence and autonomous control into working hardware devices.</p>
+          <div class="skill-tags">
+            <span class="stag">ESP32</span>
+            <span class="stag">Sensors</span>
+            <span class="stag">Embedded C</span>
+            <span class="stag">Hardware Integration</span>
+          </div>
+        </article>
+
+        <article class="glow-card skill-card bento-5 fade-up">
+          <div class="skill-icon"><i class="fas fa-helicopter"></i></div>
+          <h3>Robotics &amp; Flight Prototypes</h3>
+          <p style="font-size:0.92rem;color:var(--slate);margin-bottom:18px;">Hands-on assembly of compact drones and RC car systems, debugging motor/control hardware and compact airframe layouts.</p>
+          <div class="skill-tags">
+            <span class="stag">Drone Prototyping</span>
+            <span class="stag">RC Systems</span>
+            <span class="stag">Robotics</span>
+          </div>
+        </article>
+
+        <article class="glow-card skill-card bento-5 fade-up">
+          <div class="skill-icon"><i class="fas fa-code"></i></div>
+          <h3>Software &amp; Web Engineering</h3>
+          <p style="font-size:0.92rem;color:var(--slate);margin-bottom:18px;">Core programming across Python, Java, C, and MySQL paired with modern UI/UX and responsive front-end development.</p>
+          <div class="skill-tags">
+            <span class="stag">Python</span>
+            <span class="stag">Java</span>
+            <span class="stag">MySQL</span>
+            <span class="stag">HTML / CSS</span>
+          </div>
+        </article>
+
+        <article class="glow-card skill-card bento-7 fade-up">
+          <div class="skill-icon"><i class="fas fa-compass"></i></div>
+          <h3>Academic Excellence &amp; Quick Navigation</h3>
+          <p style="font-size:0.92rem;color:var(--slate);margin-bottom:18px;">Pursuing B.E. in CSE at P.A. College of Engineering (8.86 CGPA) with BE10X certification. Press <strong style="color:var(--ink);">Ctrl+K</strong> anywhere on this site to open the instant command palette.</p>
+          <div class="proj-links">
+            <a href="about.html" class="proj-link demo" data-cursor="DATA"><i class="fas fa-id-card"></i> Official Bio-Data</a>
+            <a href="skills.html" class="proj-link code" data-cursor="RADAR"><i class="fas fa-chart-area"></i> Skill Radar</a>
+            <a href="resume.html" class="proj-link code" data-cursor="CV"><i class="fas fa-print"></i> Printable Resume</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== FEATURED PROJECTS ===== -->
+    <section class="section">
+      <div class="section-header fade-up">
+        <div class="section-eyebrow">02 // Selected Builds</div>
+        <h2 class="section-title" data-scramble>Featured <span>Projects</span></h2>
+        <p class="section-sub">Hardware and robotics builds documented from design to system-level testing</p>
+      </div>
+
+      <div class="projects-grid">
+        <article class="glow-card proj-card fade-up" data-cursor="BUILD">
+          <div class="proj-body">
+            <span class="proj-badge">Engineering Project</span>
+            <h3>Medicine Reminder Box</h3>
+            <p>Designed a smart medicine reminder box to support elderly users in taking medicines on schedule, focused on simple operation and timely reminders.</p>
+            <div class="proj-tech">
+              <span class="pchip">ESP32</span>
+              <span class="pchip">Sensors</span>
+              <span class="pchip">Embedded Systems</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Fouzan7" target="_blank" rel="noopener noreferrer" class="proj-link code"><i class="fab fa-github"></i> GitHub</a>
+              <a href="projects.html" class="proj-link demo"><i class="fas fa-arrow-right"></i> Details</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="glow-card proj-card fade-up" data-cursor="BUILD">
+          <div class="proj-body">
+            <span class="proj-badge">Engineering Project</span>
+            <h3>ESP32 Compact Drone</h3>
+            <p>Built a compact drone prototype using an ESP32 and sensors, working on sensor integration, hardware placement, compact form factor, and basic control.</p>
+            <div class="proj-tech">
+              <span class="pchip">ESP32</span>
+              <span class="pchip">Drone Prototyping</span>
+              <span class="pchip">Robotics</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Fouzan7" target="_blank" rel="noopener noreferrer" class="proj-link code"><i class="fab fa-github"></i> GitHub</a>
+              <a href="projects.html" class="proj-link demo"><i class="fas fa-arrow-right"></i> Details</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="glow-card proj-card fade-up" data-cursor="ACTIVE">
+          <div class="proj-body">
+            <span class="proj-badge active">Current Project</span>
+            <h3>Cloud-Hybrid AI Assistant</h3>
+            <p>Designed and assembled an RC car as a practical robotics and electronics project, focusing on motor/control components and system-level troubleshooting.</p>
+            <div class="proj-tech">
+              <span class="pchip">RC Systems</span>
+              <span class="pchip">Motor Control</span>
+              <span class="pchip">Hardware</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/Fouzan7" target="_blank" rel="noopener noreferrer" class="proj-link code"><i class="fab fa-github"></i> GitHub</a>
+              <a href="projects.html" class="proj-link demo"><i class="fas fa-arrow-right"></i> Details</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div style="text-align:center; margin-top:42px;" class="fade-up">
+        <a href="projects.html" class="btn-primary" data-cursor="ALL"><i class="fas fa-layer-group"></i> Inspect All Builds</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-logo">Mohammed <span>Fouzan</span></div>
+    <p class="footer-tag">B.E. Computer Science &amp; Engineering // Robotics &amp; Embedded Systems</p>
+    <nav class="footer-nav" aria-label="Footer Navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">Bio-Data</a>
+      <a href="skills.html">Skills</a>
+      <a href="projects.html">Projects</a>
+      <a href="education.html">Education</a>
+      <a href="resume.html">Resume</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <p class="footer-copy">&copy; 2026 <span>Mohammed Fouzan</span> &middot; HTML5, CSS3, JavaScript &amp; jQuery</p>
+  </footer>
+
+  <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+  <script src="js/script.js"></script>
+</body>
+</html>
