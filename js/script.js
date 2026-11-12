@@ -244,7 +244,7 @@ $(document).ready(function () {
     requestAnimationFrame(draw);
   })();
 
-  // ---- 4. Real-Time WebGL PBR 3D Studio Engine (Three.js r134 + Fallback) ----
+  // ---- 4. Master 60 FPS Kinetic Sculpture Engine (Three.js r134) ----
   (function initWebGLStudio() {
     const canvas = document.getElementById('scene-3d');
     if (!canvas) return;
@@ -252,6 +252,7 @@ $(document).ready(function () {
     const $readout = $('#rot-readout');
     const $label = $('#shape-label');
     const $actionBtn = $('#trigger-3d-fx');
+    const $fpsBadge = $('#telemetry-fps');
 
     if (typeof THREE !== 'undefined') {
       let width = stage.clientWidth || 380;
@@ -265,15 +266,15 @@ $(document).ready(function () {
       renderer.outputEncoding = THREE.sRGBEncoding;
 
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 50);
-      camera.position.set(0, 0.35, 4.4);
+      const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 50);
+      camera.position.set(0, 0.28, 4.2);
       camera.lookAt(0, 0, 0);
 
-      // Procedural Warm Studio Environment Map (no external HDRI required)
+      // Warm Editorial Studio Lightroom Environment Map
       const pmrem = new THREE.PMREMGenerator(renderer);
       const envScene = new THREE.Scene();
       envScene.background = new THREE.Color(0xf5f2eb);
-      const envGeo = new THREE.PlaneGeometry(12, 12);
+      const envGeo = new THREE.PlaneGeometry(14, 14);
       const panelTop = new THREE.Mesh(envGeo, new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide }));
       panelTop.position.set(0, 6, 0);
       panelTop.rotation.x = Math.PI / 2;
@@ -288,175 +289,214 @@ $(document).ready(function () {
       pmrem.dispose();
 
       // Studio Lighting
-      const ambient = new THREE.AmbientLight(0xfff9f0, 0.55);
-      const keyLight = new THREE.DirectionalLight(0xfffcf5, 1.8);
+      const ambient = new THREE.AmbientLight(0xfff9f0, 0.65);
+      const keyLight = new THREE.DirectionalLight(0xfffcf5, 1.9);
       keyLight.position.set(3.5, 4.5, 4);
-      const rimLight = new THREE.DirectionalLight(0x8c5e35, 1.3);
+      const rimLight = new THREE.DirectionalLight(0x8c5e35, 1.4);
       rimLight.position.set(-4, 1.5, -2);
-      const sageBounce = new THREE.DirectionalLight(0x2d4a3e, 0.9);
+      const sageBounce = new THREE.DirectionalLight(0x2d4a3e, 0.95);
       sageBounce.position.set(2, -4, 2);
       scene.add(ambient, keyLight, rimLight, sageBounce);
 
-      // Ground Contact Shadow Texture
+      // Contact Floor Shadow
       const shCanvas = document.createElement('canvas');
       shCanvas.width = 128; shCanvas.height = 128;
       const shCtx = shCanvas.getContext('2d');
       const shGrad = shCtx.createRadialGradient(64, 64, 4, 64, 64, 62);
-      shGrad.addColorStop(0, 'rgba(24, 24, 27, 0.24)');
-      shGrad.addColorStop(0.55, 'rgba(45, 74, 62, 0.08)');
+      shGrad.addColorStop(0, 'rgba(24, 24, 27, 0.22)');
+      shGrad.addColorStop(0.5, 'rgba(45, 74, 62, 0.07)');
       shGrad.addColorStop(1, 'rgba(24, 24, 27, 0)');
       shCtx.fillStyle = shGrad;
       shCtx.fillRect(0, 0, 128, 128);
       const shadowTex = new THREE.CanvasTexture(shCanvas);
       const shadowPlane = new THREE.Mesh(
-        new THREE.PlaneGeometry(2.8, 2.8),
+        new THREE.PlaneGeometry(3.0, 3.0),
         new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false })
       );
       shadowPlane.rotation.x = -Math.PI / 2;
-      shadowPlane.position.y = -1.42;
+      shadowPlane.position.y = -1.45;
       scene.add(shadowPlane);
 
-      // Shared PBR Materials
+      // Master PBR Materials (Warm Editorial Studio Palette)
       const matBronze = new THREE.MeshPhysicalMaterial({
-        color: 0x9c6b3f, metalness: 0.88, roughness: 0.16, clearcoat: 0.9, clearcoatRoughness: 0.1
+        color: 0x9c6b3f, metalness: 0.90, roughness: 0.18, clearcoat: 0.85, clearcoatRoughness: 0.1
       });
       const matSageMetal = new THREE.MeshPhysicalMaterial({
-        color: 0x2d4a3e, metalness: 0.65, roughness: 0.24, clearcoat: 0.8, clearcoatRoughness: 0.14
+        color: 0x2d4a3e, metalness: 0.72, roughness: 0.22, clearcoat: 0.75, clearcoatRoughness: 0.12
       });
       const matChampagne = new THREE.MeshPhysicalMaterial({
-        color: 0xc8ad8d, metalness: 0.82, roughness: 0.20, clearcoat: 0.7
+        color: 0xd4b896, metalness: 0.86, roughness: 0.15, clearcoat: 0.85
       });
       const matCeramic = new THREE.MeshPhysicalMaterial({
-        color: 0xfaf7f0, metalness: 0.08, roughness: 0.25, clearcoat: 0.6
+        color: 0xfaf7f0, metalness: 0.06, roughness: 0.18, clearcoat: 0.9
       });
-      const matBlade = new THREE.MeshPhysicalMaterial({
-        color: 0x18181b, metalness: 0.2, roughness: 0.3, transparent: true, opacity: 0.72
+      const matPrism = new THREE.MeshPhysicalMaterial({
+        color: 0x3f6b59, metalness: 0.25, roughness: 0.06, transmission: 0.75, thickness: 1.1, ior: 1.54, transparent: true, opacity: 0.94
       });
-      const matLed = new THREE.MeshBasicMaterial({ color: 0x34d399 });
+      const matGlowingCore = new THREE.MeshStandardMaterial({
+        color: 0x8c5e35, emissive: 0x8c5e35, emissiveIntensity: 0.55, roughness: 0.2
+      });
 
       // Master Pivot Group
       const masterGroup = new THREE.Group();
       scene.add(masterGroup);
 
-      // Ambient 3D Dust Motes
-      const moteCount = 130;
+      // Floating Ambient Stardust Motes
+      const moteCount = 90;
       const motePos = new Float32Array(moteCount * 3);
       for (let i = 0; i < moteCount; i++) {
-        const rad = 1.65 + Math.random() * 1.1;
+        const rad = 1.6 + Math.random() * 1.2;
         const theta = Math.random() * Math.PI * 2;
         const phi = Math.acos(2 * Math.random() - 1);
         motePos[i * 3] = rad * Math.sin(phi) * Math.cos(theta);
-        motePos[i * 3 + 1] = rad * Math.cos(phi) * 0.75;
+        motePos[i * 3 + 1] = rad * Math.cos(phi) * 0.7;
         motePos[i * 3 + 2] = rad * Math.sin(phi) * Math.sin(theta);
       }
       const moteGeom = new THREE.BufferGeometry();
       moteGeom.setAttribute('position', new THREE.BufferAttribute(motePos, 3));
       const motes = new THREE.Points(moteGeom, new THREE.PointsMaterial({
-        color: 0x8c5e35, size: 0.032, transparent: true, opacity: 0.65
+        color: 0x8c5e35, size: 0.034, transparent: true, opacity: 0.6
       }));
       scene.add(motes);
 
-      // --- MODE 1: LIQUID FERROFLUID SCULPTURE ---
-      const ferroGroup = new THREE.Group();
-      // Level 3 subdivision (642 vertices) guarantees locked 120 FPS frame budget (<0.3ms normal recalculation)
-      const ferroGeo = new THREE.IcosahedronGeometry(1.06, 3);
-      const fPosAttr = ferroGeo.attributes.position;
-      const fBaseNormals = new Float32Array(fPosAttr.count * 3);
-      for (let i = 0; i < fPosAttr.count; i++) {
-        const vx = fPosAttr.getX(i), vy = fPosAttr.getY(i), vz = fPosAttr.getZ(i);
-        const l = Math.hypot(vx, vy, vz) || 1;
-        fBaseNormals[i * 3] = vx / l;
-        fBaseNormals[i * 3 + 1] = vy / l;
-        fBaseNormals[i * 3 + 2] = vz / l;
+      // =================================================================
+      // MODE 1: KINETIC ORRERY (Celestial Chronograph with Satellite Orbits)
+      // =================================================================
+      const orreryGroup = new THREE.Group();
+
+      // Outer Machined Bronze Dial Ring with 12 Hour Studs
+      const ringOuter = new THREE.Mesh(new THREE.TorusGeometry(1.38, 0.034, 18, 90), matBronze);
+      for (let i = 0; i < 12; i++) {
+        const a = (i / 12) * Math.PI * 2;
+        const stud = new THREE.Mesh(new THREE.CylinderGeometry(0.024, 0.024, 0.04, 12), matChampagne);
+        stud.position.set(Math.cos(a) * 1.38, Math.sin(a) * 1.38, 0);
+        stud.rotation.z = a;
+        ringOuter.add(stud);
       }
-      const ferroMat = new THREE.MeshPhysicalMaterial({
-        color: 0x8c5e35, metalness: 0.88, roughness: 0.14, clearcoat: 1.0, clearcoatRoughness: 0.06
+
+      // Middle Faceted Sage Gimbal Ring
+      const ringMid = new THREE.Mesh(new THREE.TorusGeometry(1.08, 0.030, 16, 80), matSageMetal);
+
+      // Inner Champagne Gimbal Ring
+      const ringInner = new THREE.Mesh(new THREE.TorusGeometry(0.78, 0.022, 16, 70), matChampagne);
+
+      // 4 Orbital Satellite Arms & Spheres
+      const satellites = [];
+      const satConfigs = [
+        { r: 1.24, speed: 0.9, tilt: 0.45, size: 0.075, mat: matChampagne },
+        { r: 0.95, speed: -1.3, tilt: -0.65, size: 0.062, mat: matSageMetal },
+        { r: 0.62, speed: 1.8, tilt: 0.85, size: 0.052, mat: matBronze },
+        { r: 0.42, speed: -2.4, tilt: -0.2, size: 0.042, mat: matCeramic }
+      ];
+      satConfigs.forEach(function (cfg) {
+        const satPivot = new THREE.Group();
+        satPivot.rotation.x = cfg.tilt;
+        const satMesh = new THREE.Mesh(new THREE.SphereGeometry(cfg.size, 16, 16), cfg.mat);
+        satMesh.position.x = cfg.r;
+        satPivot.add(satMesh);
+        orreryGroup.add(satPivot);
+        satellites.push({ pivot: satPivot, speed: cfg.speed });
       });
-      const ferroMesh = new THREE.Mesh(ferroGeo, ferroMat);
-      const ferroOrbit = new THREE.Mesh(new THREE.TorusGeometry(1.46, 0.018, 16, 90), matSageMetal);
-      ferroOrbit.rotation.x = Math.PI / 2.6;
-      ferroGroup.add(ferroMesh, ferroOrbit);
-      masterGroup.add(ferroGroup);
 
-      // --- MODE 2: EXPLODABLE 3D ESP32 QUADCOPTER DRONE ---
-      const droneGroup = new THREE.Group();
-      droneGroup.visible = false;
-      const droneParts = [];
-      const droneLeds = [];
-      function addDronePart(mesh, rest, explodeOffset) {
-        mesh.position.set(rest[0], rest[1], rest[2]);
-        mesh.userData.rest = new THREE.Vector3(rest[0], rest[1], rest[2]);
-        mesh.userData.exp = new THREE.Vector3(explodeOffset[0], explodeOffset[1], explodeOffset[2]);
-        droneGroup.add(mesh);
-        droneParts.push(mesh);
-        return mesh;
+      // Faceted Icosa-Crystal Neural Core + Inner Heart
+      const coreGroup = new THREE.Group();
+      const crystalMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(0.38, 0), matPrism);
+      const innerHeart = new THREE.Mesh(new THREE.DodecahedronGeometry(0.20, 0), matGlowingCore);
+      coreGroup.add(crystalMesh, innerHeart);
+
+      orreryGroup.add(ringOuter, ringMid, ringInner, coreGroup);
+      masterGroup.add(orreryGroup);
+
+      // =================================================================
+      // MODE 2: KINETIC IRIS (Mechanical Aperture Bloom)
+      // =================================================================
+      const irisGroup = new THREE.Group();
+      irisGroup.visible = false;
+      const bladeCount = 10;
+      const irisBlades = [];
+
+      // Outer aperture collar
+      const irisCollar = new THREE.Mesh(new THREE.TorusGeometry(1.28, 0.045, 18, 80), matBronze);
+      irisGroup.add(irisCollar);
+
+      // 10 Interlocking Curved Aperture Blades
+      for (let i = 0; i < bladeCount; i++) {
+        const bladePivot = new THREE.Group();
+        const baseAngle = (i / bladeCount) * Math.PI * 2;
+        bladePivot.rotation.z = baseAngle;
+
+        const bladeGeo = new THREE.BoxGeometry(0.68, 0.016, 0.32);
+        const bladeMesh = new THREE.Mesh(bladeGeo, i % 2 === 0 ? matSageMetal : matChampagne);
+        bladeMesh.position.set(0.48, 0.14, (i - bladeCount / 2) * 0.012);
+        bladeMesh.rotation.z = 0.32;
+        bladePivot.add(bladeMesh);
+
+        irisGroup.add(bladePivot);
+        irisBlades.push({ pivot: bladePivot, baseAngle: baseAngle });
       }
 
-      // Main Chassis Plate
-      addDronePart(new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.08, 0.95), matSageMetal), [0, 0, 0], [0, -0.18, 0]);
-      // ESP32 Microcontroller Board + RF Shield + Status LED
-      const espBoard = new THREE.Group();
-      const pcb = new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.04, 0.30), matCeramic);
-      const shield = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.045, 0.22), matBronze);
-      shield.position.set(-0.06, 0.035, 0);
-      const led = new THREE.Mesh(new THREE.SphereGeometry(0.028, 12, 12), matLed);
-      led.position.set(0.16, 0.035, 0.08);
-      espBoard.add(pcb, shield, led);
-      addDronePart(espBoard, [0, 0.08, 0], [0, 0.42, 0]);
-
-      // Sculpted Top Canopy
-      const canopy = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.46, 0.14, 24), matCeramic);
-      addDronePart(canopy, [0, 0.19, 0], [0, 0.85, 0]);
-
-      // Bottom Battery / Skid Frame
-      const battery = new THREE.Mesh(new THREE.BoxGeometry(0.54, 0.12, 0.34), matBronze);
-      addDronePart(battery, [0, -0.12, 0], [0, -0.62, 0]);
-
-      // 4 Diagonal Arms, Motors, Nav LEDs, and Spinning Rotors
-      const rotors = [];
-      const armAngles = [Math.PI / 4, (3 * Math.PI) / 4, (5 * Math.PI) / 4, (7 * Math.PI) / 4];
-      armAngles.forEach(function (ang, idx) {
-        const dx = Math.cos(ang), dz = Math.sin(ang);
-        const arm = new THREE.Mesh(new THREE.BoxGeometry(0.86, 0.055, 0.09), matSageMetal);
-        arm.rotation.y = -ang;
-        addDronePart(arm, [dx * 0.52, 0, dz * 0.52], [dx * 0.88, 0, dz * 0.88]);
-
-        const motor = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.12, 0.16, 20), matBronze);
-        addDronePart(motor, [dx * 0.94, 0.07, dz * 0.94], [dx * 1.28, 0.22, dz * 1.28]);
-
-        // Navigation Strobe LEDs (Front: Emerald, Rear: Ruby)
-        const navColor = idx < 2 ? 0x34d399 : 0xf43f5e;
-        const navLed = new THREE.Mesh(new THREE.SphereGeometry(0.028, 8, 8), new THREE.MeshBasicMaterial({ color: navColor }));
-        addDronePart(navLed, [dx * 0.94, 0.03, dz * 0.94], [dx * 1.34, 0.22, dz * 1.34]);
-        droneLeds.push(navLed);
-
-        const rotorHub = new THREE.Group();
-        const b1 = new THREE.Mesh(new THREE.BoxGeometry(0.76, 0.014, 0.075), matBlade);
-        const b2 = new THREE.Mesh(new THREE.BoxGeometry(0.075, 0.014, 0.76), matBlade);
-        const cap = new THREE.Mesh(new THREE.ConeGeometry(0.045, 0.07, 16), matBronze);
-        cap.position.y = 0.04;
-        rotorHub.add(b1, b2, cap);
-        rotorHub.userData.dir = idx % 2 === 0 ? 1 : -1;
-        addDronePart(rotorHub, [dx * 0.94, 0.18, dz * 0.94], [dx * 1.28, 0.65, dz * 1.28]);
-        rotors.push(rotorHub);
-      });
-      masterGroup.add(droneGroup);
-
-      // --- MODE 3: POSEIDON MACHINED ASTROLABE ---
-      const astroGroup = new THREE.Group();
-      astroGroup.visible = false;
-      const ringA = new THREE.Mesh(new THREE.TorusGeometry(1.18, 0.048, 20, 90), matBronze);
-      for (let i = 0; i < 16; i++) {
-        const a = (i / 16) * Math.PI * 2;
-        const stud = new THREE.Mesh(new THREE.SphereGeometry(0.038, 10, 10), matChampagne);
-        stud.position.set(Math.cos(a) * 1.18, Math.sin(a) * 1.18, 0);
-        ringA.add(stud);
+      // Inner Glowing Diode Matrix inside the Aperture
+      const irisMatrix = new THREE.Group();
+      for (let row = -2; row <= 2; row++) {
+        for (let col = -2; col <= 2; col++) {
+          if (Math.hypot(row, col) <= 2.2) {
+            const hex = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 0.03, 6), matCeramic);
+            hex.position.set(col * 0.13, row * 0.13, 0);
+            hex.rotation.x = Math.PI / 2;
+            irisMatrix.add(hex);
+          }
+        }
       }
-      const ringB = new THREE.Mesh(new THREE.TorusGeometry(0.92, 0.042, 20, 80), matSageMetal);
-      const ringC = new THREE.Mesh(new THREE.TorusGeometry(0.66, 0.034, 18, 70), matChampagne);
-      const crystalCore = new THREE.Mesh(new THREE.OctahedronGeometry(0.42, 0), matBronze);
-      astroGroup.add(ringA, ringB, ringC, crystalCore);
-      masterGroup.add(astroGroup);
+      const irisCenterLight = new THREE.Mesh(new THREE.SphereGeometry(0.12, 16, 16), matGlowingCore);
+      irisMatrix.add(irisCenterLight);
+      irisGroup.add(irisMatrix);
+      masterGroup.add(irisGroup);
+
+      // =================================================================
+      // MODE 3: NEURAL PRISM (Quantum Hyper-Lattice)
+      // =================================================================
+      const prismGroup = new THREE.Group();
+      prismGroup.visible = false;
+
+      // Outer Bronze Wireframe Dodecahedron
+      const dodecaGeo = new THREE.DodecahedronGeometry(1.15, 0);
+      const dodecaWire = new THREE.LineSegments(
+        new THREE.WireframeGeometry(dodecaGeo),
+        new THREE.LineBasicMaterial({ color: 0x8c5e35, linewidth: 2 })
+      );
+      prismGroup.add(dodecaWire);
+
+      // Intersecting Star Tetrahedron (Stella Octangula)
+      const tet1 = new THREE.Mesh(new THREE.TetrahedronGeometry(0.85, 0), matSageMetal);
+      const tet2 = new THREE.Mesh(new THREE.TetrahedronGeometry(0.85, 0), matChampagne);
+      tet2.rotation.x = Math.PI;
+      tet2.rotation.y = Math.PI / 3;
+      const starTet = new THREE.Group();
+      starTet.add(tet1, tet2);
+      prismGroup.add(starTet);
+
+      // Vertex Quantum Nodes & Floating Beacons
+      const nodeCount = 14;
+      const prismNodes = [];
+      for (let i = 0; i < nodeCount; i++) {
+        const phi = Math.acos(-1 + (2 * i) / nodeCount);
+        const theta = Math.sqrt(nodeCount * Math.PI) * phi;
+        const r = 1.15;
+        const node = new THREE.Mesh(new THREE.SphereGeometry(0.052, 14, 14), matBronze);
+        node.userData.rest = new THREE.Vector3(
+          r * Math.sin(phi) * Math.cos(theta),
+          r * Math.sin(phi) * Math.sin(theta),
+          r * Math.cos(phi)
+        );
+        node.position.copy(node.userData.rest);
+        prismGroup.add(node);
+        prismNodes.push(node);
+      }
+
+      // Central Optical Crystal Core
+      const centerDiamond = new THREE.Mesh(new THREE.OctahedronGeometry(0.32, 0), matPrism);
+      prismGroup.add(centerDiamond);
+      masterGroup.add(prismGroup);
 
       // Resize Handler
       function onResize3D() {
@@ -469,22 +509,19 @@ $(document).ready(function () {
       window.addEventListener('resize', onResize3D);
 
       // Pointer / Touch Controls
-      let currentShape = 'ferro';
-      let explodeAmount = 0, explodeTarget = 0;
-      let rotX = 0.32, rotY = 0.55;
-      let velX = 0.002, velY = 0.006;
+      let currentShape = 'orrery';
+      let kineticState = false;
+      let kineticProgress = 0;
+      let rotX = 0.35, rotY = -0.45;
+      let velX = 0.001, velY = 0.005;
       let dragging = false, lastX = 0, lastY = 0;
-      let hoverPt = new THREE.Vector3(0, 0, 1);
-      let hoverActive = false;
-      let rippleTime = 99;
       let pulseScale = 1, pulseVel = 0;
 
       stage.addEventListener('pointerdown', function (e) {
         dragging = true;
         lastX = e.clientX;
         lastY = e.clientY;
-        rippleTime = 0;
-        pulseVel = 0.028;
+        pulseVel = 0.032;
       });
       window.addEventListener('pointerup', function () { dragging = false; });
 
@@ -492,10 +529,10 @@ $(document).ready(function () {
         if (dragging) {
           const dx = e.clientX - lastX;
           const dy = e.clientY - lastY;
-          velY = dx * 0.011;
-          velX = dy * 0.011;
+          velY = dx * 0.009;
+          velX = dy * 0.009;
           rotY += velY;
-          rotX += velX;
+          rotX = Math.max(-1.3, Math.min(1.3, rotX + velX));
           lastX = e.clientX;
           lastY = e.clientY;
         }
@@ -505,174 +542,186 @@ $(document).ready(function () {
         const r = stage.getBoundingClientRect();
         const nx = ((e.clientX - r.left) / r.width) * 2 - 1;
         const ny = -(((e.clientY - r.top) / r.height) * 2 - 1);
-        hoverPt.set(nx * 1.2, ny * 1.2, 0.9).normalize();
-        hoverActive = true;
-        keyLight.position.set(2.5 + nx * 2.5, 3.5 + ny * 2.0, 4);
+        keyLight.position.set(3.0 + nx * 2.2, 4.0 + ny * 1.8, 4);
       }, { passive: true });
-      stage.addEventListener('pointerleave', function () { hoverActive = false; });
 
-      $('.mode-3d-btn[data-shape]').on('click', function () {
-        const shape = $(this).data('shape');
+      function setKineticShape(shape) {
         currentShape = shape;
         $('.mode-3d-btn[data-shape]').removeClass('active');
-        $(this).addClass('active');
+        $('.mode-3d-btn[data-shape="' + shape + '"]').addClass('active');
 
-        ferroGroup.visible = shape === 'ferro';
-        droneGroup.visible = shape === 'drone';
-        astroGroup.visible = shape === 'astrolabe';
-        pulseVel = 0.04;
-        rippleTime = 0;
+        orreryGroup.visible = shape === 'orrery';
+        irisGroup.visible = shape === 'iris';
+        prismGroup.visible = shape === 'prism';
 
-        if (shape === 'drone') {
-          $label.text('ESP32_DRONE // CAD');
-          $actionBtn.text(explodeTarget > 0.5 ? 'ASSEMBLE' : 'EXPLODE');
-          $readout.text('DRAG · CLICK EXPLODE');
-        } else if (shape === 'astrolabe') {
-          $label.text('ASTROLABE // GIMBAL');
-          $actionBtn.text('SPIN BOOST');
-          $readout.text('DRAG · 3-AXIS ORBIT');
+        kineticState = false;
+        kineticProgress = 0;
+        pulseVel = 0.035;
+
+        if (shape === 'orrery') {
+          $label.text('ORRERY // KINETIC CORE');
+          $actionBtn.text('ALIGN');
+          $readout.text('DRAG TO ORBIT · TAP ALIGN');
+        } else if (shape === 'iris') {
+          $label.text('KINETIC_IRIS // BLOOM');
+          $actionBtn.text('BLOOM');
+          $readout.text('DRAG TO ORBIT · TAP BLOOM');
         } else {
-          $label.text('LIQUID_FERRO // PBR');
+          $label.text('NEURAL_PRISM // QUANTUM');
           $actionBtn.text('PULSE');
-          $readout.text('HOVER TO DISTORT');
+          $readout.text('DRAG TO ORBIT · TAP PULSE');
         }
+      }
+
+      $('.mode-3d-btn[data-shape]').on('click', function () {
+        setKineticShape($(this).data('shape'));
       });
 
-      $actionBtn.on('click', function () {
-        if (currentShape === 'drone') {
-          explodeTarget = explodeTarget > 0.5 ? 0 : 1;
-          $actionBtn.text(explodeTarget > 0.5 ? 'ASSEMBLE' : 'EXPLODE');
-        } else if (currentShape === 'astrolabe') {
-          velY += 0.085;
-          velX -= 0.03;
-          pulseVel = 0.035;
+      function triggerAction() {
+        kineticState = !kineticState;
+        pulseVel = 0.045;
+        if (currentShape === 'orrery') {
+          $actionBtn.text(kineticState ? 'EXPAND' : 'ALIGN');
+        } else if (currentShape === 'iris') {
+          $actionBtn.text(kineticState ? 'CONTRACT' : 'BLOOM');
         } else {
-          rippleTime = 0;
-          pulseVel = 0.04;
+          pulseVel = 0.08;
         }
-      });
+      }
 
-      const clock = new THREE.Clock();
+      $actionBtn.on('click', triggerAction);
+
+      // =================================================================
+      // UNIVERSAL 60 FPS RENDER LOOP (Consistent across all devices)
+      // =================================================================
+      const targetFps = 60;
+      const frameInterval = 1000 / targetFps; // 16.666 ms
+      let lastDrawTime = performance.now();
       let frames = 0;
-      let lastFpsTime = performance.now();
-      const $fpsBadge = $('#telemetry-fps');
+      let lastFpsMeasure = performance.now();
       let isVisible = true;
 
-      // Smart Render Throttling: Pause 3D GPU loop when scrolled out of view
+      // Smart Render Pausing: yield GPU resources when scrolled out of view
       if ('IntersectionObserver' in window) {
         const obs = new IntersectionObserver(function (entries) {
-          const visible = entries[0].isIntersecting;
-          if (visible && !isVisible) {
-            clock.getDelta(); // flush delta time jump
+          const vis = entries[0].isIntersecting;
+          if (vis && !isVisible) {
+            lastDrawTime = performance.now();
             requestAnimationFrame(animate);
           }
-          isVisible = visible;
+          isVisible = vis;
         }, { threshold: 0.05 });
         obs.observe(stage);
       }
 
-      function animate() {
+      function animate(now) {
         if (!isVisible) return;
-        const dt = Math.min(clock.getDelta(), 0.05);
-        const t = clock.elapsedTime;
-        rippleTime += dt;
+        requestAnimationFrame(animate);
 
-        // Real-Time 120 FPS / High-Refresh Telemetry Monitor
+        // Frame rate limiter: locks cleanly to 60 FPS on 60Hz, 120Hz, 144Hz displays
+        const elapsed = now - lastDrawTime;
+        if (elapsed < frameInterval - 1.2) {
+          return;
+        }
+        lastDrawTime = now - (elapsed % frameInterval);
+
+        const dt = Math.min(elapsed / 1000, 0.04);
+        const t = now * 0.001;
+
+        // Telemetry monitor: Solid 60 FPS
         frames++;
-        const now = performance.now();
-        if (now - lastFpsTime >= 350) {
-          const measured = Math.round((frames * 1000) / (now - lastFpsTime));
+        if (now - lastFpsMeasure >= 400) {
+          const fps = Math.min(60, Math.round((frames * 1000) / (now - lastFpsMeasure)));
           frames = 0;
-          lastFpsTime = now;
+          lastFpsMeasure = now;
           if ($fpsBadge.length) {
-            // Displays true 120 FPS on high-refresh panels, 60 FPS on standard displays
-            const displayFps = measured >= 105 ? 120 : (measured >= 55 && measured <= 65 ? 60 : measured);
-            $fpsBadge.text(displayFps + ' FPS · GPU');
+            $fpsBadge.text(fps + ' FPS · GPU');
           }
         }
 
-        // Frame-rate independent rotational momentum (smooth across 60Hz, 120Hz, 144Hz)
+        // Inertia damping (smooth exponential physics)
         if (!dragging) {
-          rotX += velX * (dt * 60);
-          rotY += velY * (dt * 60);
-          const friction = Math.exp(-4.5 * dt);
-          velX *= friction;
-          velY = velY * friction + (1 - friction) * 0.0055;
+          rotX += velX;
+          rotY += velY;
+          velX *= 0.95;
+          velY = velY * 0.95 + 0.00028;
+          if (Math.abs(velY) < 0.005) velY = 0.0055;
         }
 
-        // Exponential decay pulse
-        pulseVel += (1 - pulseScale) * (14.0 * dt);
-        pulseVel *= Math.exp(-6.5 * dt);
+        // Pulse spring physics
+        pulseVel += (1 - pulseScale) * 0.18;
+        pulseVel *= 0.82;
         pulseScale += pulseVel;
 
         masterGroup.rotation.x = rotX;
         masterGroup.rotation.y = rotY;
-        masterGroup.position.y = Math.sin(t * 1.8) * 0.055;
+        masterGroup.position.y = Math.sin(t * 1.6) * 0.045;
         masterGroup.scale.setScalar(pulseScale);
 
-        const shadowScale = 1 - masterGroup.position.y * 0.8;
+        const shadowScale = 1 - masterGroup.position.y * 0.75;
         shadowPlane.scale.set(shadowScale, shadowScale, 1);
-        motes.rotation.y = t * 0.06;
-        motes.rotation.x = Math.sin(t * 0.3) * 0.08;
+        motes.rotation.y = t * 0.04;
 
-        // Animate Mode 1: Real-time Ferrofluid Wave & Cursor Repel (Optimized for locked 120 FPS)
-        if (ferroGroup.visible) {
-          for (let i = 0; i < fPosAttr.count; i++) {
-            const nx = fBaseNormals[i * 3];
-            const ny = fBaseNormals[i * 3 + 1];
-            const nz = fBaseNormals[i * 3 + 2];
+        // Smooth kinetic transition target (0 to 1)
+        kineticProgress += ((kineticState ? 1 : 0) - kineticProgress) * 0.08;
 
-            const wave1 = Math.sin(nx * 3.4 + t * 2.1) * Math.cos(ny * 3.2 - t * 1.7) * 0.11;
-            const wave2 = Math.sin(nz * 4.5 + t * 2.8) * 0.065;
-            let burst = 0;
-            if (rippleTime < 1.8) {
-              const distFromFront = Math.acos(Math.max(-1, Math.min(1, nz)));
-              burst = Math.sin(distFromFront * 7 - rippleTime * 11) * Math.exp(-rippleTime * 1.9) * 0.16;
-            }
-            let hoverPush = 0;
-            if (hoverActive) {
-              const d = Math.hypot(nx - hoverPt.x, ny - hoverPt.y, nz - hoverPt.z);
-              if (d < 0.95) hoverPush = Math.pow(1 - d / 0.95, 2) * 0.22;
-            }
-            const r = 1.04 + wave1 + wave2 + burst + hoverPush;
-            fPosAttr.setXYZ(i, nx * r, ny * r, nz * r);
-          }
-          fPosAttr.needsUpdate = true;
-          ferroGeo.computeVertexNormals();
-          ferroOrbit.rotation.z = t * 0.45;
-          ferroOrbit.rotation.y = Math.sin(t * 0.5) * 0.25;
+        // --- ANIMATE MODE 1: ORRERY ---
+        if (orreryGroup.visible) {
+          const align = kineticProgress;
+          ringOuter.rotation.z = t * 0.25;
+          ringOuter.rotation.x = THREE.MathUtils.lerp(0.35, 0, align);
+
+          ringMid.rotation.x = THREE.MathUtils.lerp(t * 0.45, 0, align);
+          ringMid.rotation.y = THREE.MathUtils.lerp(-t * 0.32, 0, align);
+
+          ringInner.rotation.y = THREE.MathUtils.lerp(t * 0.75, 0, align);
+          ringInner.rotation.z = THREE.MathUtils.lerp(-t * 0.5, 0, align);
+
+          satellites.forEach(function (sat, idx) {
+            sat.pivot.rotation.z += sat.speed * dt;
+            sat.pivot.rotation.x = THREE.MathUtils.lerp(satConfigs[idx].tilt, 0, align);
+          });
+
+          crystalMesh.rotation.y = t * 0.85;
+          crystalMesh.rotation.x = Math.sin(t * 0.7) * 0.35;
+          innerHeart.rotation.y = -t * 1.2;
         }
 
-        // Animate Mode 2: Explodable ESP32 Quadcopter (Delta-time independent 120 FPS spin & explode)
-        if (droneGroup.visible) {
-          explodeAmount += (explodeTarget - explodeAmount) * (1 - Math.exp(-9.0 * dt));
-          droneParts.forEach(function (part) {
-            part.position.lerpVectors(part.userData.rest, part.userData.exp, explodeAmount);
+        // --- ANIMATE MODE 2: KINETIC IRIS ---
+        if (irisGroup.visible) {
+          irisCollar.rotation.z = t * 0.15;
+          const bloom = kineticProgress;
+          irisBlades.forEach(function (blade) {
+            const bladeAngle = blade.baseAngle + (bloom * 0.55);
+            blade.pivot.rotation.z = bladeAngle;
+            blade.pivot.children[0].rotation.z = 0.32 - bloom * 0.28;
+            blade.pivot.children[0].position.x = 0.48 + bloom * 0.24;
           });
-          rotors.forEach(function (rotor) {
-            rotor.rotation.y += 30.0 * dt * rotor.userData.dir;
-          });
-          led.visible = Math.sin(t * 8) > -0.1;
-          const strobe = Math.sin(t * 14) > 0.2;
-          droneLeds.forEach(function (nl) { nl.visible = strobe; });
+          irisMatrix.rotation.z = -t * 0.35;
+          irisCenterLight.scale.setScalar(1 + bloom * 0.4 + Math.sin(t * 4) * 0.08);
         }
 
-        // Animate Mode 3: Poseidon Astrolabe Gimbal (Delta-time independent 120 FPS orbits)
-        if (astroGroup.visible) {
-          ringA.rotation.x = t * 0.35;
-          ringA.rotation.y = t * 0.20;
-          ringB.rotation.y = -t * 0.58;
-          ringB.rotation.z = t * 0.30;
-          ringC.rotation.x = -t * 0.78;
-          ringC.rotation.z = -t * 0.42;
-          crystalCore.rotation.y = t * 1.10;
-          crystalCore.rotation.x = Math.sin(t * 0.8) * 0.4;
+        // --- ANIMATE MODE 3: NEURAL PRISM ---
+        if (prismGroup.visible) {
+          dodecaWire.rotation.y = t * 0.32;
+          dodecaWire.rotation.x = Math.sin(t * 0.4) * 0.2;
+
+          starTet.rotation.y = -t * 0.65;
+          starTet.rotation.z = t * 0.35;
+
+          centerDiamond.rotation.y = t * 1.1;
+          centerDiamond.rotation.x = t * 0.7;
+
+          prismNodes.forEach(function (node, idx) {
+            const wave = Math.sin(t * 2.5 + idx) * 0.06;
+            const radialPush = 1 + wave + kineticProgress * 0.35;
+            node.position.copy(node.userData.rest).multiplyScalar(radialPush);
+          });
         }
 
         renderer.render(scene, camera);
-        requestAnimationFrame(animate);
       }
-      animate();
+      requestAnimationFrame(animate);
     }
   })();
 
